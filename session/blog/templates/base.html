@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title%} {% endblock title %}</title>
+    {% block static %} {% endblock static%}
+  </head>
+  <body>
+    {% load static %}
+    <h1>
+      LIKELION 11 Blog Project
+      <img src="{% static 'blog/img/naver.png'%}" alt="" />
+    </h1>
+    <br><hr>
+    {% block content%} {% endblock content%}
+    <br><hr>
+    <p class="checker">20201438 김용민</p>
+  </body>
+</html>
+
+<style>
+  img {
+    width: 10%;
+    height: 10%;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  .checker{
+    text-align: center;
+  }
+</style>

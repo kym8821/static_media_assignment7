@@ -1,11 +1,51 @@
-<h1>LIKELION 11 Blog Project</h1>
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+홈페이지
+{% endblock title%}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+{% endblock static %}
+
+{% block content%}
 <a href="{%url 'new'%}">새 글 작성하기</a>
-<div>
-    {% for blog in blogs %}
-    <a href="{%url 'detail' blog.id%}">
-    <h2>{{blog.title}}</h2>
-    <p>{{blog.summary}}</p>
-    <p>{{blog.created_at}}</p>
+
+<div class="blog-list-box">
+  {% for blog in page_obj %}
+  <div>
+    <a href="{%url 'detail' blog.id%}" class="blog-prev">
+      <h2>{{blog.title}}</h2>
+      <p>{{blog.summary}}</p>
+      <p>{{blog.created_at}}</p>
     </a>
-    {% endfor %}
+  </div>
+  {% endfor %}
 </div>
+<span>
+    {% if page_obj.has_next and not page_obj.has_previous %}
+    <a href="?page=1">처음</a>
+    <p>{{page_obj.number}}</p>
+    <p> / </p>
+    <p>{{page_obj.paginator.num_pages}}</p>
+    <a href="?page={{page_obj.next_page_number}}">다음</a>
+    {% endif %}
+
+    {% if page_obj.has_previous and not page_obj.has_next%}
+    <a href="?page={{page_obj.previous_page_number}}">이전</a>
+    <p>{{page_obj.number}}</p>
+    <p> / </p>
+    <p>{{page_obj.paginator.num_pages}}</p>
+    <a href="?page={{page_obj.paginator.num_pages}}">마지막</a>
+    {% endif %}
+
+    {% if page_obj.has_next and page_obj.has_previous %}
+    <a href="?page={{page_obj.previous_page_number}}">이전</a>
+    <p>{{page_obj.number}}</p>
+    <p> / </p>
+    <p>{{page_obj.paginator.num_pages}}</p>
+    <a href="?page={{page_obj.next_page_number}}">다음</a>
+    {% endif%}
+</span>
+{% endblock content %}
